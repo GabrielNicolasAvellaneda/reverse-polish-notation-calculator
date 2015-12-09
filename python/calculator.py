@@ -18,7 +18,7 @@ class ReversePolishCalculator():
                 }
         stack = []  
         for s in symbols:
-            if functions.has_key(s):
+            if s in functions:
                 func = functions[s]
                 b = stack.pop()
                 a = stack.pop()
