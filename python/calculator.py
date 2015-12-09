@@ -3,17 +3,22 @@ import unittest
 class ReversePolishCalculator():
     """ A reverse polish calculator """
     def calculate(self, expression):
+
+        def add(a, b):
+            return a + b
+
+        def product(a, b):
+            return a * b
+
         symbols = expression.split(" ")
+        functions = {"+" : add, "*" : product}
         stack = []  
         for s in symbols:
-            if s == "+":
+            if functions.has_key(s):
+                func = functions[s]
                 a = stack.pop()
                 b = stack.pop()
-                stack.append(a + b)
-            elif s == "*":
-                a = stack.pop()
-                b = stack.pop()
-                stack.append(a * b)
+                stack.append(func(a, b))
             else:
                 x = int(s)
                 stack.append(x)
