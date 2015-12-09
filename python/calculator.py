@@ -10,14 +10,20 @@ class ReversePolishCalculator():
         def product(a, b):
             return a * b
 
+        def substraction(a, b):
+            return a - b
+
+        def division(a, b):
+            return a / b
+
         symbols = expression.split(" ")
-        functions = {"+" : add, "*" : product}
+        functions = {"+" : add, "*" : product, "-" : substraction, "/" : division}
         stack = []  
         for s in symbols:
             if functions.has_key(s):
                 func = functions[s]
-                a = stack.pop()
                 b = stack.pop()
+                a = stack.pop()
                 stack.append(func(a, b))
             else:
                 x = int(s)
@@ -48,6 +54,18 @@ class CalculatorTest(unittest.TestCase):
         calc = ReversePolishCalculator()
         result = calc.calculate("2 3 *")
         self.assertEqual(6, result)
+
+    def test_a_substraction_of_two_numbers_expression(self):
+        calc = ReversePolishCalculator()
+        result = calc.calculate("2 1 -")
+        self.assertEqual(1, result)
+        result = calc.calculate("3 5 -")
+        self.assertEqual(-2, result)
+
+    def test_a_division_of_two_numbers_expression(self):
+        calc = ReversePolishCalculator()
+        result = calc.calculate("4 2 /")
+        self.assertEqual(2, result)
 
 if __name__ == '__main__':
     unittest.main()
