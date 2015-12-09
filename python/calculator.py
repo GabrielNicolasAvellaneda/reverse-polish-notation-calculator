@@ -6,13 +6,17 @@ class ReversePolishCalculator():
         symbols = expression.split(" ")
         stack = []  
         for s in symbols:
-            if s == '+':
+            if s == "+":
                 a = stack.pop()
                 b = stack.pop()
-                stack.insert(len(stack), a + b) 
+                stack.append(a + b)
+            elif s == "*":
+                a = stack.pop()
+                b = stack.pop()
+                stack.append(a * b)
             else:
                 x = int(s)
-                stack.insert(len(stack), x)
+                stack.append(x)
 
         return stack.pop()
 
@@ -25,7 +29,7 @@ class CalculatorTest(unittest.TestCase):
         result = calc.calculate("2")
         self.assertEqual(2, result)
 
-    def test_a_sum_of_two_number_expression(self):
+    def test_a_sum_of_two_numbers_expression(self):
         """ Arrange """
         calc = ReversePolishCalculator()
         
@@ -35,6 +39,10 @@ class CalculatorTest(unittest.TestCase):
         """ Assert """
         self.assertEqual(11, result)
 
+    def test_a_product_of_two_numbers_expression(self):
+        calc = ReversePolishCalculator()
+        result = calc.calculate("2 3 *")
+        self.assertEqual(6, result)
 
 if __name__ == '__main__':
     unittest.main()
