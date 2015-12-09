@@ -1,23 +1,21 @@
 import unittest
+import operator
 
 class ReversePolishCalculator():
     """ A reverse polish calculator """
     def calculate(self, expression):
 
-        def add(a, b):
-            return a + b
-
-        def product(a, b):
-            return a * b
-
-        def substraction(a, b):
-            return a - b
-
-        def division(a, b):
-            return a / b
+        # TODO: Use a generator for the parsing of the symbols
+        # TODO: Allow to use more than one delimiter and no delimiters at all between operators and operands
+        # TODO: Reduce the list of symbols to the expression value.
 
         symbols = expression.split(" ")
-        functions = {"+" : add, "*" : product, "-" : substraction, "/" : division}
+        functions = {
+                "+" : operator.add,
+                "*" : operator.mul,
+                "-" : operator.sub,
+                "/" : operator.div
+                }
         stack = []  
         for s in symbols:
             if functions.has_key(s):
